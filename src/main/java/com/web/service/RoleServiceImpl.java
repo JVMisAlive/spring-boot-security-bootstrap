@@ -1,11 +1,15 @@
 package com.web.service;
 
 import com.web.model.Role;
+import com.web.model.User;
 import com.web.repository.RoleRepo;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -45,6 +49,19 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role getRoleByName(String name) {
         return roleRepo.getRoleByName(name);
+    }
+
+    @Override
+    public Set<Role> getRoleSet(Set<String> roles) {
+        return new HashSet<>(roleRepo.getRoleByNameIn(roles));
+    }
+
+    @Override
+    public String getViewRoleSet(User user){
+        return user.getRoles()
+                .stream()
+                .map(role -> role.getName().substring(5))
+                .collect(Collectors.joining(", "));
     }
 
 }

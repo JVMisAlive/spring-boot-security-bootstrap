@@ -1,4 +1,4 @@
-package com.web.config;
+package com.web.security;
 
 import com.web.security.LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
@@ -33,13 +33,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .formLogin()
+                .loginPage("/login")
                 .successHandler(new LoginSuccessHandler())
                 .usernameParameter("nickname")
                 .passwordParameter("password")
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
+                .permitAll()
+                .logoutSuccessUrl("/login");
     }
 
 }

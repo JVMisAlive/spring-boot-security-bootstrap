@@ -8,6 +8,7 @@ import com.web.model.User;
 import com.web.service.RoleService;
 import com.web.service.UserService;
 
+
 @Controller
 public class UserController {
 
@@ -22,7 +23,9 @@ public class UserController {
     @GetMapping("/user")
     public String userInfo(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userRoles = roleService.getViewRoleSet(user);
         model.addAttribute("userData", user);
+        model.addAttribute("userRoles", userRoles);
         return "user";
     }
 

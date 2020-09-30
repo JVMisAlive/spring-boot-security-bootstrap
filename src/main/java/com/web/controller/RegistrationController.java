@@ -32,6 +32,14 @@ public class RegistrationController {
         this.userService = userService;
     }
 
+    @GetMapping("/")
+    public String login(){
+        return "login";
+    }
+    @GetMapping("/login")
+    public String loginPage(){
+        return "login";
+    }
 
     @GetMapping("/registration")
     public String registration(Model model) {

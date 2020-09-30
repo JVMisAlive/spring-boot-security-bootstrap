@@ -1,44 +1,89 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
 
 <head>
+    <!-- Required meta tags -->
     <meta charset="UTF-8">
-    <title>Current User</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>User Page</title>
 </head>
 
 <body>
-
-<div align="center">
-    <h2>User information</h2>
-    <table border="1">
-        <tr>
-            <th>Id</th>
-            <th>Nickname</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Age</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Role</th>
-        </tr>
-
-        <tr>
-            <td th:utext="${userData.id}"></td>
-            <td th:utext="${userData.nickname}"></td>
-            <td th:utext="${userData.firstName}"></td>
-            <td th:utext="${userData.lastName}"></td>
-            <td th:utext="${userData.age}"></td>
-            <td th:utext="${userData.email}"></td>
-            <td th:utext="${userData.password}"></td>
-            <td th:utext="${userData.roles}"></td>
-        </tr>
-
-    </table>
-
-    <h4><a th:href="@{/logout}">Logout</a></h4>
+<nav class="navbar navbar-dark bg-dark shadow mb-2">
+    <div th:object="${userRoles}">
+        <div th:object="${userData}">
+            <span class="text-white" style="font-weight: bold" th:text="${userData.getEmail()}"> </span>
+            <span class="text-white" style="font-weight: lighter"> with roles:</span>
+            <span class="text-white" style="font-weight: lighter" th:text="${userRoles}"></span>
+        </div>
+    </div>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="/logout">Logout</a>
+        </li>
+    </ul>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 sidebar">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#user" role="tab"
+                   aria-controls="v-pills-home" aria-selected="true">User</a>
+            </div>
+        </nav>
+        <main role="main" class="col-md-8 bg-light">
+            <h2>User Information Page</h2>
+            <div th:object="${userRoles}">
+                <div th:object="${userData}">
+                    <table class="table table-striped">
+                        <thead>
+                        About User
+                        </thead>
+                        <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nickname</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Surname</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Role</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td th:text="${userData.id}"></td>
+                            <td th:text="${userData.nickname}"></td>
+                            <td th:text="${userData.firstName}"></td>
+                            <td th:text="${userData.lastName}"></td>
+                            <td th:text="${userData.age}"></td>
+                            <td th:text="${userData.email}"></td>
+                            <td th:text="${userData.password}"></td>
+                            <td th:text="${userRoles}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>
