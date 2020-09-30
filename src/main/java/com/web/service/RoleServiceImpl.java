@@ -5,7 +5,9 @@ import com.web.repository.RoleRepo;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -45,6 +47,11 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role getRoleByName(String name) {
         return roleRepo.getRoleByName(name);
+    }
+
+    @Override
+    public Set<Role> getRoleSet(Set<String> roles) {
+        return new HashSet<>(roleRepo.getRoleByNameIn(roles));
     }
 
 }

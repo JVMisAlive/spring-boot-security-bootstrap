@@ -52,7 +52,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean saveUser(User user) {
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         userRepo.save(user);
         return true;
     }

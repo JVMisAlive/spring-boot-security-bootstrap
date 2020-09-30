@@ -1,5 +1,6 @@
 package com.web.controller;
 
+import com.web.model.Role;
 import com.web.model.User;
 import com.web.service.RoleService;
 import com.web.service.UserService;
@@ -8,6 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Controller
@@ -40,7 +45,8 @@ public class AdminController {
     }
 
     @PostMapping("/admin/add")
-    public ModelAndView createUser(@ModelAttribute("userAdd") User user, @RequestParam("addRole") String[] addRole) {
+    public ModelAndView createUser(@ModelAttribute("userAdd") User user, @RequestParam("addRole") Set<String> editRole) {
+        user.setRoles(roleService.getRoleSet(editRole));
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/admin");
         userService.saveUser(user);
@@ -58,7 +64,8 @@ public class AdminController {
     }
 
     @PostMapping("/admin/edit/{id}")
-    public ModelAndView editUser(@ModelAttribute("userEdit") User user) {
+    public ModelAndView editUser(@ModelAttribute("userEdit") User user, @RequestParam("editRole") Set<String> editRole) {
+        user.setRoles(roleService.getRoleSet(editRole));
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/admin");
         userService.edit(user);
